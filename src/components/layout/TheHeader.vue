@@ -50,15 +50,20 @@
           </li>
         </div>
 
-        <div>
-          <li v-if="auth">
+        <div v-if="auth">
+          <li>
             <router-link to="/useraccount">حسابي</router-link>
           </li>
-          <li v-else="auth">
+          <li>
+            <router-link to="/">تسجيل الخروج</router-link>
+          </li>
+        </div>
+        <div v-else="auth">
+          <li>
             <router-link to="/login">تسجيل الدخول</router-link>
           </li>
-          <li v-if="auth">
-            <router-link to="/">تسجيل الخروج</router-link>
+          <li>
+            <router-link to="/login">إنشاء حساب</router-link>
           </li>
         </div>
       </ul>
@@ -79,7 +84,7 @@ export default {
     return {
       Symbol: "<< خدماتنا",
       displayserviceslist: false,
-      auth:false,
+      auth: false,
     };
   },
   methods: {
@@ -95,6 +100,7 @@ export default {
 </script>
 
 <style scoped>
+
 nav {
   position: fixed;
   height: 70px;
@@ -106,7 +112,7 @@ nav {
   z-index: 1;
 }
 
-nav > ul {
+nav>ul {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -114,21 +120,21 @@ nav > ul {
   width: 88vw;
 }
 
-nav > ul > div {
+nav>ul>div {
   display: flex;
   flex-direction: row-reverse;
   margin: auto;
 }
 
 li,
-li > a {
+li>a {
   color: white;
   padding: 0px 10px;
   text-decoration: none;
 }
 
 li:hover,
-li > a:hover,
+li>a:hover,
 img:hover {
   cursor: pointer;
   color: #bbbbbb;
@@ -148,20 +154,21 @@ img:hover {
   top: 43px;
 }
 
-.services > li {
+.services>li {
   width: 100%;
   padding: 5px;
   margin: 0px;
 }
 
-.services > li:hover {
+.services>li:hover {
   background-color: #bbbbbb;
 }
 
-.services > li > a {
+.services>li>a {
   color: #25252c;
 }
-img{ 
+
+img {
   width: 3.5vw;
   height: 2.5vw;
   margin-top: 3px;
