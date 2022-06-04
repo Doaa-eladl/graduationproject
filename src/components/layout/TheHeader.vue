@@ -25,9 +25,7 @@
                 <router-link to="/vagrants">بلاغ عن مشردين</router-link>
               </li>
               <li>
-                <router-link to="/homelesschildren"
-                  >بلاغ عن اطفال الشوارع</router-link
-                >
+                <router-link to="/homelesschildren">بلاغ عن اطفال الشوارع</router-link>
               </li>
               <li>
                 <router-link to="/zakat">احسب زكاة مالك</router-link>
@@ -53,14 +51,14 @@
         </div>
 
         <div>
-          <li>
+          <li v-if="auth">
             <router-link to="/useraccount">حسابي</router-link>
           </li>
-          <li>
+          <li v-else="auth">
             <router-link to="/login">تسجيل الدخول</router-link>
           </li>
-          <li>
-            <a>تسجيل الخروج</a>
+          <li v-if="auth">
+            <router-link to="/">تسجيل الخروج</router-link>
           </li>
         </div>
       </ul>
@@ -81,6 +79,7 @@ export default {
     return {
       Symbol: "<< خدماتنا",
       displayserviceslist: false,
+      auth:false,
     };
   },
   methods: {

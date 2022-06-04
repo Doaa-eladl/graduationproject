@@ -35,6 +35,7 @@ import applyforjob from './components/pages/unauthorized/applyforjob.vue'
 import supportedservices from './components/pages/unauthorized/supportedservices.vue'
 import charitypage from './components/pages/unauthorized/charitypage.vue'
 import activitydetails from './components/pages/unauthorized/activitydetails.vue'
+import NotFound from './components/pages/NotFound.vue'
 
 import whoweare from './components/pages/unauthorized/whoweare.vue'
 
@@ -42,7 +43,8 @@ const app = createApp(App)
 const router = createRouter({
     history: createWebHistory(process.env.BASE_URL),
     routes: [
-        { path:'/',component:landingpage },
+        { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
+        { path: '/', name: 'home', component: landingpage },
         { path:'/login',component:login },
         { path:'/myaccount',component:useraccount},
         { path:'/connectus',component:connectus},
