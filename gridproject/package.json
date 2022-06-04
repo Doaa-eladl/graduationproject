@@ -1,0 +1,37 @@
+{
+  "name": "gridproject",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.1.0",
+    "@fortawesome/free-regular-svg-icons": "^6.1.0",
+    "@fortawesome/free-solid-svg-icons": "^6.1.0",
+    "@fortawesome/vue-fontawesome": "^2.0.6",
+    "bootstrap-vue": "^2.22.0",
+    "popper.js": "^1.16.1",
+    "portal-vue": "^2.1.7",
+    "vue": "^3.2.33",
+    "vue-loader": "^16.5.0",
+    "vue-router": "^4.0.14"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-router": "~5.0.0",
+    "@vue/cli-service": "^5.0.4",
+    "bootstrap": "^4.6.1",
+    "jquery": "^3.6.0",
+    "popper.js": "^1.16.1",
+    "sass": "^1.26.11",
+    "sass-loader": "^10.0.2",
+    "vue-cli-plugin-bootstrap-vue": "~0.8.2"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ]
+}
