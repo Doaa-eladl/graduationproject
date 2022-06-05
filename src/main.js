@@ -1,15 +1,13 @@
 import { createApp } from 'vue'
 
-import 'bootstrap/dist/css/bootstrap.css'
-
-import App from './App.vue'
+import App from '@/App.vue'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap';
+//import { createRouter,createWebHistory } from 'vue-router'
 
-import { createRouter,createWebHistory } from 'vue-router'
-
-import basebutton from './components/UI/basebutton.vue'
-import basewrapper from './components/UI/basewrapper.vue'
-
+import basebutton from '@/components/UI/basebutton.vue'
+import basewrapper from '@/components/UI/basewrapper.vue'
+/* 
 import login from './components/pages/authentication/login.vue'
 import landingpage from './components/pages/unauthorized/landingpage.vue'
 
@@ -38,8 +36,14 @@ import activitydetails from './components/pages/unauthorized/activitydetails.vue
 import NotFound from './components/pages/NotFound.vue'
 
 import whoweare from './components/pages/unauthorized/whoweare.vue'
+ */
+import router from '@/router';
 
 const app = createApp(App)
+
+app.config.globalProperties.auth = true;
+
+/* 
 const router = createRouter({
     history: createWebHistory(process.env.BASE_URL),
     routes: [
@@ -69,7 +73,7 @@ const router = createRouter({
         { path:'/charitypage/:charityid',component:charitypage},
         { path:'/activitydetails/:activityid',component:activitydetails},
     ] 
-})
+}) */
 
 import { dom } from '@fortawesome/fontawesome-svg-core'
 dom.watch()
@@ -77,11 +81,11 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faPhone,faEnvelope,faLocationDot,faSearch } from '@fortawesome/free-solid-svg-icons'
 
-
 library.add(faPhone,faEnvelope,faLocationDot,faSearch)
 
 app.component('fa', FontAwesomeIcon)
 app.use(router)
+
 app.component('base-button',basebutton)
 app.component('base-wrapper',basewrapper)
 

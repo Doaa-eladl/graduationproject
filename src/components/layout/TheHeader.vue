@@ -7,10 +7,12 @@
           <li>
             <router-link to="/">الرئيسيه</router-link>
           </li>
-
-          <li @mouseover="open" @mouseleave="hide">
-            {{ Symbol }}
-            <ul class="services" v-show="displayserviceslist">
+          <li dir="rtl" class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              خدماتنا
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
               <li>
                 <router-link to="/volunteer-form">تطوع</router-link>
               </li>
@@ -84,7 +86,7 @@ export default {
     return {
       Symbol: "<< خدماتنا",
       displayserviceslist: false,
-      auth: false,
+
     };
   },
   methods: {
@@ -110,64 +112,35 @@ nav {
   justify-content: start;
   align-items: center;
   z-index: 1;
-}
-
-nav>ul {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  flex-direction: row-reverse !important;
-  width: 88vw;
-}
-
-nav>ul>div {
-  display: flex;
-  flex-direction: row-reverse;
-  margin: auto;
-}
-
-li,
-li>a {
-  color: white;
-  padding: 0px 10px;
-  text-decoration: none;
-}
-
-li:hover,
-li>a:hover,
-img:hover {
-  cursor: pointer;
-  color: #bbbbbb;
-}
-
-.services {
-  margin-top: 5px;
-  width: 185px;
-  background-color: #ebf1f2;
-  height: auto;
-  position: fixed;
-  list-style: none;
-  padding: 0px;
-  right: 355px;
-  border: #9a9a9f solid;
-  border-radius: 5px;
-  top: 43px;
-}
-
-.services>li {
-  width: 100%;
-  padding: 5px;
-  margin: 0px;
-}
-
-.services>li:hover {
-  background-color: #bbbbbb;
-}
-
-.services>li>a {
-  color: #25252c;
-}
-
+  }
+  
+  nav>ul {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: row-reverse !important;
+    width: 88vw;
+  }
+  
+  nav>ul>div {
+    display: flex;
+    flex-direction: row-reverse;
+    margin: auto;
+  }
+  
+  li,
+  li>a {
+    color: white;
+    padding: 0px 10px;
+    text-decoration: none;
+  }
+  
+  li:hover,
+  li>a:hover,
+  img:hover {
+    cursor: pointer;
+    color: #bbbbbb;
+  }
 img {
   width: 3.5vw;
   height: 2.5vw;
