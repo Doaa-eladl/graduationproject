@@ -1,6 +1,6 @@
 <template>
   <div class="postscontainer">
-    <div class="card">
+    <div class="card" v-if=auth >
       <textarea type="text" placeholder="اكتب منشور" v-model="postdata" />
       <small class="form-text text-muted" v-show="posterror">{{
         posterror
