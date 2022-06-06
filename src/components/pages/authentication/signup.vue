@@ -4,68 +4,43 @@
       <h2>انشاء حساب جديد</h2>
       <form @submit.prevent="signup">
         <div class="form-group">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="الاسم بالكامل"
-            v-model="username"
-          />
-          <small class="form-text text-muted" v-show="nameerror">{{
-            nameerror
+          <input type="text" class="form-control" placeholder="الاسم بالكامل" v-model="username" />
+          <small class="form-text text-muted" v-show="nameError">{{
+              nameError
           }}</small>
         </div>
         <div class="form-group">
-          <input
-            type="email"
-            class="form-control"
-            placeholder="البريد الالكتروني"
-            v-model="useremail"
-          />
-          <small class="form-text text-muted" v-show="emailerror">{{
-            emailerror
+          <input type="email" class="form-control" placeholder="البريد الالكتروني" v-model="email" />
+          <small class="form-text text-muted" v-show="emailError">{{
+              emailError
           }}</small>
         </div>
         <div class="form-group">
-          <input
-            type="password"
-            class="form-control"
-            placeholder="كلمه المرور"
-            v-model="userpass"
-          />
-          <small class="form-text text-muted" v-show="passworderror">{{
-            passworderror
+          <input type="password" class="form-control" placeholder="كلمه المرور" v-model="password" />
+          <small class="form-text text-muted" v-show="passwordError">{{
+              passwordError
           }}</small>
         </div>
 
         <div class="form-group">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="رقم الجوال"
-            v-model="userphone"
-          />
-          <small class="form-text text-muted" v-show="phoneerror">{{
-            phoneerror
+          <input type="text" class="form-control" placeholder="رقم الجوال" v-model="phone" />
+          <small class="form-text text-muted" v-show="phoneError">{{
+              phoneError
           }}</small>
         </div>
 
         <div class="form-group">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="المدينه"
-            v-model="useraddress"
-          />
-          <small class="form-text text-muted" v-show="addresserror">{{
-            addresserror
+          <input type="text" class="form-control" placeholder="عنوانك" v-model="address" />
+          <small class="form-text text-muted" v-show="addressError">{{
+              addressError
           }}</small>
         </div>
         <div>
           <label>الموافقه علي الشروط والاحكام</label>
-          <input type="checkbox" v-model="acceptterms" />
+          <input type="checkbox" v-model="acceptTerms" />
           <div>
-            <small class="form-text text-muted" v-show="!acceptterms">{{
-              accepttermserror
+            <small class="form-text text-muted" v-show="!acceptTerms">{{
+                acceptTermsError
             }}</small>
           </div>
         </div>
@@ -84,58 +59,90 @@ export default {
   data() {
     return {
       username: null,
-      nameerror: null,
-      useremail: null,
-      emailerror: null,
-      userpass: null,
-      passworderror: null,
-      userphone: "",
-      phoneerror: null,
-      useraddress: null,
-      addresserror: null,
-      acceptterms: false,
-      accepttermserror: null,
+      nameError: null,
+      email: null,
+      emailError: null,
+      password: null,
+      passwordError: null,
+      phone: "",
+      phoneError: null,
+      address: null,
+      addressError: null,
+      acceptTerms: false,
+      acceptTermsError: null,
+
     };
   },
   methods: {
     signup() {
-      this.nameerror = null;
-      this.emailerror = null;
-      this.passworderror = null;
-      this.phoneerror = null;
-      this.addresserror = null;
-      this.accepttermserror = null;
-
-      if (this.username == null) {
-        this.nameerror = "ادخل الاسم بالكامل";
-      }
-      if (this.useremail == null) {
-        this.emailerror = "ادخل بريدك الالكتروني";
-      }
-      if (this.userpass == null) {
-        this.passworderror = "ادخل كلمه المرور";
-      }
-      if (this.userphone.length < 12) {
-        this.phoneerror = "ادخل رقمك المكون من 12 رقم";
-      }
-      if (this.useraddress == null) {
-        this.addresserror = "ادخل عنوانك";
-      }
-      if (this.acceptterms == false) {
-        this.accepttermserror = "يجب الموافقه علي شروط الموقع";
+      if (this.isValidateInput()) {
+        const userData = {
+          name: this.username,
+          email: this.email,
+          phone: this.phone,
+          password: this.password,
+          address: this.address,
+        }
+        this.$router.replace("/")
       }
       //هنبعت للباك الداتا لو كله سليم ع هيئه اوبجيكت
       else {
-        const newuser = {
-          name: this.username,
-          email: this.useremail,
-          phone: this.userphone,
-          password: this.userpass,
-          address: this.useraddress,
-        };
-        this.$router.replace("/");
+
       }
     },
+    isValidateInput() {
+      this.restErrors()
+      let isValid = true;
+
+      if (!this.username) {
+        this.nameError = "ادخل الاسم بالكامل";
+        isValid = false
+      }
+
+      if (!this.email) {
+        this.emailError = "ادخل بريدك الالكتروني";
+        isValid = false
+      }
+
+      if (!this.password) {
+        this.passwordError = "ادخل كلمه المرور";
+        isValid = false
+      }
+
+      if (this.phone) {
+        if (this.phone.length < 12) {
+          this.phoneError = "ادخل رقمك المكون من 12 رقم";
+          isValid = false
+        } else if (isNaN(this.phone)) {
+          this.phoneError = "ادخل ارقام فقط من فضلك";
+          isValid = false
+        }
+      } else {
+        this.phoneError = "ادخل رقمك المكون من 12 رقم";
+        isValid = false
+      }
+
+      if (!this.address) {
+        this.addressError = "ادخل عنوانك";
+        isValid = false
+      }
+
+      if (!this.acceptTerms) {
+        this.acceptTermsError = "يجب الموافقه علي شروط الموقع";
+        isValid = false
+      }
+
+      return isValid
+
+    },
+    restErrors() {
+      this.nameError = null;
+      this.emailError = null;
+      this.passwordError = null;
+      this.phoneError = null;
+      this.addressError = null;
+      this.acceptTermsError = null;
+    }
   },
 };
 </script>
@@ -153,16 +160,16 @@ form {
   text-align: end;
 }
 
-form > div {
+form>div {
   margin: 5px 0px;
   cursor: context-menu !important;
 }
 
-form > div > input {
+form>div>input {
   text-align: end;
 }
 
-form > div > label {
+form>div>label {
   margin-right: 10px;
 }
 
@@ -189,7 +196,7 @@ small {
   margin-top: 5px;
 }
 
-div > a {
+div>a {
   text-decoration: none;
 }
 </style>

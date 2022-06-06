@@ -3,80 +3,25 @@ import { createApp } from 'vue'
 import App from '@/App.vue'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap';
-//import { createRouter,createWebHistory } from 'vue-router'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 import basebutton from '@/components/UI/basebutton.vue'
 import basewrapper from '@/components/UI/basewrapper.vue'
-/* 
-import login from './components/pages/authentication/login.vue'
-import landingpage from './components/pages/unauthorized/landingpage.vue'
 
-import useraccount from './components/pages/user/account.vue'
-
-import connectus from './components/pages/unauthorized/connectus.vue'
-import donateform from './components/pages/unauthorized/donation-form.vue'
-import volunteerform from './components/pages/authentication/volunteer-form.vue'
-import signup from './components/pages/authentication/signup.vue'
-import forgetpass from './components/pages/authentication/forgetpassword.vue'
-import checkcode from './components/pages/authentication/checkcode.vue'
-import resetpass from './components/pages/authentication/resetpass.vue'
-import askforhelp from './components/pages/unauthorized/askforhelp.vue'
-import vagrants from './components/pages/unauthorized/vagrants.vue' 
-import helphomeless from './components/pages/unauthorized/helphomeless.vue' 
-
-import homelesschildren from './components/pages/unauthorized/homelesschildren.vue'
-import zakat from './components/pages/unauthorized/zakat.vue'
-import awarenesslectures from './components/pages/unauthorized/awarenesslectures.vue'
-import attendlecture from './components/pages/unauthorized/attendlecture.vue'
-import Jobs from './components/pages/unauthorized/Jobs.vue'
-import applyforjob from './components/pages/unauthorized/applyforjob.vue'
-import supportedservices from './components/pages/unauthorized/supportedservices.vue'
-import charitypage from './components/pages/unauthorized/charitypage.vue'
-import activitydetails from './components/pages/unauthorized/activitydetails.vue'
-import NotFound from './components/pages/NotFound.vue'
-
-import whoweare from './components/pages/unauthorized/whoweare.vue'
- */
 import router from '@/router';
 
 const app = createApp(App)
 
-app.config.globalProperties.auth = true;
-
-/* 
-const router = createRouter({
-    history: createWebHistory(process.env.BASE_URL),
-    routes: [
-        { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
-        { path: '/', name: 'home', component: landingpage },
-        { path:'/login',component:login },
-        { path:'/myaccount',component:useraccount},
-        { path:'/connectus',component:connectus},
-        { path:'/whoweare',component:whoweare},
-        { path:'/donate-form/:charityid?',component:donateform},
-
-        { path:'/volunteer-form/:charityid?',component:volunteerform},
-        { path:'/signup',component:signup},
-        { path:'/forgetpass',component:forgetpass},
-        { path:'/checkcode/:email',component:checkcode},
-        { path:'/resetpass/:email',component:resetpass},
-        { path:'/askforhelp/:charityid?',component:askforhelp},
-        { path:'/vagrants',component:vagrants},
-        { path:'/helphomeless',component:helphomeless},
-        { path:'/homelesschildren',component:homelesschildren},
-        { path:'/zakat',component:zakat},
-        { path:'/awarenesslectures',component:awarenesslectures},
-        { path:'/attendlecture',component:attendlecture},
-        { path:'/Jobs',component:Jobs},
-        { path:'/applyforjob',component:applyforjob},
-        { path:'/supportedservices',component:supportedservices},
-        { path:'/charitypage/:charityid',component:charitypage},
-        { path:'/activitydetails/:activityid',component:activitydetails},
-    ] 
-}) */
+app.config.globalProperties.auth = false;
+app.config.globalProperties.apiEndPoint = '';
 
 import { dom } from '@fortawesome/fontawesome-svg-core'
 dom.watch()
+import { createPinia } from 'pinia'
+app.use(createPinia())
+
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faPhone,faEnvelope,faLocationDot,faSearch } from '@fortawesome/free-solid-svg-icons'
@@ -85,6 +30,7 @@ library.add(faPhone,faEnvelope,faLocationDot,faSearch)
 
 app.component('fa', FontAwesomeIcon)
 app.use(router)
+app.use(VueAxios, axios)
 
 app.component('base-button',basebutton)
 app.component('base-wrapper',basewrapper)

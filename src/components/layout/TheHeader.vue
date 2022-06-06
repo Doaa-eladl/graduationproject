@@ -65,7 +65,7 @@
             <router-link to="/login">تسجيل الدخول</router-link>
           </li>
           <li>
-            <router-link to="/login">إنشاء حساب</router-link>
+            <router-link to="/signup">إنشاء حساب</router-link>
           </li>
         </div>
       </ul>
