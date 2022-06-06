@@ -55,12 +55,9 @@ export default {
           password: this.password
         };
         this.axios.post(api, data)
+        //  TODO : add JWT
           .then((response) => console.log(response))
           .catch((error) => console.log(error));
-      }
-      //لسه الربط بالباك وتعديل الايرور الجاي من الباك
-      else {
-
       }
     },
     isValidateInput() {
@@ -83,7 +80,6 @@ export default {
 
 
 <style scoped>
-
 
 .signincontainer {
   width: 30vw;
