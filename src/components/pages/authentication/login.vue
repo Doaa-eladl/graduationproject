@@ -7,34 +7,14 @@
       <h2>تسجيل الدخول</h2>
       <form @submit.prevent="signin">
         <div class="form-group">
-          <input
-            type="email"
-            class="form-control"
-            placeholder="البريد الالكتروني"
-            v-model="useremail"
-          />
-          <small
-            id="emailHelp"
-            class="form-text text-muted"
-            v-show="emailerror"
-            >{{ emailerror }}</small
-          >
+          <input type="email" class="form-control" placeholder="البريد الالكتروني" v-model="email" />
+          <small id="emailHelp" class="form-text text-muted" v-show="emailError">{{ emailError }}</small>
         </div>
         <div class="form-group">
-          <input
-            type="password"
-            class="form-control"
-            placeholder="كلمه المرور"
-            v-model="userpass"
-          />
+          <input type="password" class="form-control" placeholder="كلمه المرور" v-model="password" />
         </div>
         <div class="form-group">
-          <small
-            id="emailHelp"
-            class="form-text text-muted"
-            v-show="passworderror"
-            >{{ passworderror }}</small
-          >
+          <small id="emailHelp" class="form-text text-muted" v-show="passwordError">{{ passwordError }}</small>
         </div>
         <div class="paswordcontrols">
           <div>
@@ -59,31 +39,52 @@
 export default {
   data() {
     return {
-      emailerror: null,
-      passworderror: null,
-      useremail: "",
-      userpass: "",
+      emailError: null,
+      passwordError: null,
+      email: null,
+      password: null
     };
   },
   methods: {
-    signin() {
-      if (this.useremail.length == 0) {
-        this.emailerror = "ادخل البريد الالكتروني";
-      } 
-      if (this.userpass.length == 0) {
-        this.passworderror = "ادخل كلمه المرور صحيحه";
+    async signin() {
+      if (this.isValidateInput()) {
+        //Todo chang api
+        const api = this.api + '/users/create/';
+        const data = {
+          email: this.email,
+          password: this.password
+        };
+        this.axios.post(api, data)
+          .then((response) => console.log(response))
+          .catch((error) => console.log(error));
       }
       //لسه الربط بالباك وتعديل الايرور الجاي من الباك
       else {
-        this.$router.replace("/");
+
       }
     },
+    isValidateInput() {
+      this.emailError = null
+      this.passwordError = null;
+      let isValid = true
+      if (this.email.length == 0) {
+        this.emailError = "ادخل البريد الالكتروني";
+        isValid = false
+      }
+      if (this.password.length == 0) {
+        this.passwordError = "ادخل كلمه المرور صحيحه";
+        isValid = false
+      }
+      return isValid;
+    }
   },
 };
 </script>
 
 
 <style scoped>
+
+
 .signincontainer {
   width: 30vw;
 }
@@ -91,21 +92,20 @@ export default {
 h2 {
   margin-bottom: 40px;
 }
-
 form {
   text-align: end;
 }
 
-form > div {
+form>div {
   margin: 15px 0px;
   cursor: context-menu !important;
 }
 
-form > div > input {
+form>div>input {
   text-align: end;
 }
 
-form > div > div > label {
+form>div>div>label {
   margin-right: 10px;
 }
 
@@ -133,7 +133,7 @@ button {
   justify-content: space-between;
 }
 
-.forgetpass > a,
+.forgetpass>a,
 small {
   color: #f84949 !important;
 }
@@ -145,7 +145,7 @@ small {
   margin-top: 5px;
 }
 
-div > a {
+div>a {
   text-decoration: none;
 }
 </style>

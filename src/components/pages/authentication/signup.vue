@@ -83,6 +83,14 @@ export default {
           password: this.password,
           address: this.address,
         }
+        const api = this.api + '/users/create/';
+       
+        this.axios.post(api, userData)
+          .then((response) => console.log(response))
+          .catch((error) => console.log(error));
+        this.axios.post(api, userData)
+          .then((response) => console.log(response))
+          .catch((error) => console.log(error));
         this.$router.replace("/")
       }
       //هنبعت للباك الداتا لو كله سليم ع هيئه اوبجيكت

@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap';
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 import basebutton from '@/components/UI/basebutton.vue'
@@ -15,7 +16,7 @@ import router from '@/router';
 const app = createApp(App)
 
 app.config.globalProperties.auth = false;
-app.config.globalProperties.apiEndPoint = '';
+app.config.globalProperties.api = 'http://localhost:8000/api';
 
 import { dom } from '@fortawesome/fontawesome-svg-core'
 dom.watch()
