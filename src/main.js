@@ -3,10 +3,8 @@ import { createApp } from 'vue'
 import App from '@/App.vue'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap';
-import axios from 'axios'
 import VueAxios from 'vue-axios'
-
-axios.defaults.headers.post['Content-Type'] = 'application/json';
+import axios from './axios'
 
 import basebutton from '@/components/UI/basebutton.vue'
 import basewrapper from '@/components/UI/basewrapper.vue'
@@ -15,8 +13,6 @@ import router from '@/router';
 
 const app = createApp(App)
 
-app.config.globalProperties.auth = false;
-app.config.globalProperties.api = 'http://localhost:8000/api';
 
 import { dom } from '@fortawesome/fontawesome-svg-core'
 dom.watch()
@@ -32,7 +28,6 @@ library.add(faPhone,faEnvelope,faLocationDot,faSearch)
 app.component('fa', FontAwesomeIcon)
 app.use(router)
 app.use(VueAxios, axios)
-
 app.component('base-button',basebutton)
 app.component('base-wrapper',basewrapper)
 
