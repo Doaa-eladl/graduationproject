@@ -47,17 +47,15 @@ export default {
   },
   methods: {
     async signin() {
+      //Todo : add JWT
       if (this.isValidateInput()) {
-        //Todo chang api
-        const api = this.api + '/users/create/';
-        const data = {
-          email: this.email,
-          password: this.password
-        };
-        this.axios.post(api, data)
-        //  TODO : add JWT
-          .then((response) => console.log(response))
-          .catch((error) => console.log(error));
+        const response = await axios.post('/users/login/',
+          {
+            email: this.email,
+            password: this.password
+          });
+        console.log(response.data);
+        localStorage.setItem('token', response.data);
       }
     },
     isValidateInput() {
@@ -80,7 +78,6 @@ export default {
 
 
 <style scoped>
-
 .signincontainer {
   width: 30vw;
 }
@@ -88,6 +85,7 @@ export default {
 h2 {
   margin-bottom: 40px;
 }
+
 form {
   text-align: end;
 }
