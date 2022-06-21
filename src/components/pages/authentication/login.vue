@@ -49,7 +49,7 @@ export default {
     async signin() {
       //Todo : add JWT
       if (this.isValidateInput()) {
-        const response = await axios.post('/users/login/',
+        const response = await this.axios.post('/auth/token/',
           {
             email: this.email,
             password: this.password

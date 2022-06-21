@@ -9,12 +9,7 @@
               nameError
           }}</small>
         </div>
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="اسم المستخدم" v-model="userName" />
-          <small class="form-text text-muted" v-show="userNameError">{{
-              userNameError
-          }}</small>
-        </div>
+
         <div class="form-group">
           <input type="email" class="form-control" placeholder="البريد الالكتروني" v-model="email" />
           <small class="form-text text-muted" v-show="emailError">{{
@@ -89,11 +84,11 @@
 </template>
 
 <script>
+
 export default {
   data() {
     return {
       name: null,
-      userName: null,
       email: null,
       password: null,
       phone: null,
@@ -104,7 +99,6 @@ export default {
       acceptTerms: false,
 
       nameError: null,
-      userNameError: null,
       emailError: null,
       passwordError: null,
       phoneError: null,
@@ -119,24 +113,26 @@ export default {
   methods: {
     async signup() {
       if (this.isValidateInput()) {
-        const userData = {
-          name: this.name,
-          username: this.userName,
-          email: this.email,
-          phone: this.phone,
-          password: this.password,
-          address: this.address,
-          age: this.age,
-          nat_ID: this.natID,
-          blood: this.bloodType,
-        }
-        const api = this.api + '/users/create/';
-        this.axios.post(api, userData)
-          .then((response) => {
-            //  TODO : add JWt
-            this.$router.replace("/")
-          })
-          .catch((error) => console.log(error));
+        if (bloodType == 'اختر فصيلة دمك') {bloodType = null;}
+        const reg = await this.axios.post('/users/create/',
+          {
+            name: this.name,
+            email: this.email,
+            password: this.password,
+            age: this.age,
+            phone: this.phone,
+            address: this.address,
+            nat_ID: this.natID,
+            blood: this.bloodType,
+          });
+        const response = await this.axios.post('/auth/token/',
+          {
+            email: this.email,
+            password: this.password
+          });
+        localStorage.setItem('token', response.data);
+        this.$router.replace("/");
+
       }
     },
     isValidateInput() {
@@ -147,23 +143,20 @@ export default {
         this.nameError = "ادخل الاسم بالكامل";
         isValid = false
       }
-      if (!this.userName) {
-        this.userNameError = "ادخل اسم المستخدم";
-        isValid = false
-      }
       if (!this.email) {
         this.emailError = "ادخل بريدك الالكتروني";
         isValid = false
       }
-      const pattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+      //  const pattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
       if (!this.password) {
         this.passwordError = "ادخل كلمه المرور";
         isValid = false
-      } else if (!pattern.test(this.password)) {
-        this.passwordError = "ادخل كلمه المرور مكونه من ثماني حروف و تحتوي رقم و حرف علي الاقل";
-        isValid = false
       }
+      //  else if (!pattern.test(this.password)) {
+      //   this.passwordError = "ادخل كلمه المرور مكونه من ثماني حروف و تحتوي رقم و حرف علي الاقل";
+      //   isValid = false
+      // }
 
       if (this.phone) {
         if (this.phone.length != 12) {
@@ -173,35 +166,32 @@ export default {
           this.phoneError = "ادخل ارقام فقط من فضلك";
           isValid = false
         }
-      } else {
-        this.phoneError = "ادخل رقمك المكون من 12 رقم";
-        isValid = false
       }
 
-      if (!this.address) {
-        this.addressError = "ادخل عنوانك";
-        isValid = false
-      }
-      if (!this.age) {
-        this.ageError = "ادخل عمرك";
-        isValid = false
-      }
-      if (!this.natID) {
-        this.natIDError = "ادخل الرقم القومي";
-        isValid = false
-      }
-      if (!this.acceptTerms) {
-        this.acceptTermsError = "يجب الموافقه علي شروط الموقع";
-        isValid = false
-      }
+      /*       if (!this.address) {
+              this.addressError = "ادخل عنوانك";
+              isValid = false
+            }
+            if (!this.age) {
+              this.ageError = "ادخل عمرك";
+              isValid = false
+            }
+            if (!this.natID) {
+              this.natIDError = "ادخل الرقم القومي";
+              isValid = false
+            }
+            if (!this.acceptTerms) {
+              this.acceptTermsError = "يجب الموافقه علي شروط الموقع";
+              isValid = false
+            } 
+            */
 
       return isValid
 
     },
     restErrors() {
       this.nameError = null;
-      this.userNameError = null,
-        this.emailError = null;
+      this.emailError = null;
       this.passwordError = null;
       this.phoneError = null;
       this.addressError = null;
