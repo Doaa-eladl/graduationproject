@@ -57,7 +57,7 @@
             <router-link to="/useraccount">حسابي</router-link>
           </li>
           <li>
-            <router-link to="/">تسجيل الخروج</router-link>
+            <router-link v-on:click="logout()" to="/">تسجيل الخروج</router-link>
           </li>
         </div>
         <div v-else="auth">
@@ -90,6 +90,10 @@ export default {
     };
   },
   methods: {
+    logout() {
+      console.log('LOGOUT');
+      localStorage.removeItem('token');
+    },
     open() {
       this.displayserviceslist = true;
     },
@@ -102,7 +106,6 @@ export default {
 </script>
 
 <style scoped>
-
 nav {
   position: fixed;
   height: 70px;
@@ -112,35 +115,36 @@ nav {
   justify-content: start;
   align-items: center;
   z-index: 1;
-  }
-  
-  nav>ul {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    flex-direction: row-reverse !important;
-    width: 88vw;
-  }
-  
-  nav>ul>div {
-    display: flex;
-    flex-direction: row-reverse;
-    margin: auto;
-  }
-  
-  li,
-  li>a {
-    color: white;
-    padding: 0px 10px;
-    text-decoration: none;
-  }
-  
-  li:hover,
-  li>a:hover,
-  img:hover {
-    cursor: pointer;
-    color: #bbbbbb;
-  }
+}
+
+nav>ul {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: row-reverse !important;
+  width: 88vw;
+}
+
+nav>ul>div {
+  display: flex;
+  flex-direction: row-reverse;
+  margin: auto;
+}
+
+li,
+li>a {
+  color: white;
+  padding: 0px 10px;
+  text-decoration: none;
+}
+
+li:hover,
+li>a:hover,
+img:hover {
+  cursor: pointer;
+  color: #bbbbbb;
+}
+
 img {
   width: 3.5vw;
   height: 2.5vw;
